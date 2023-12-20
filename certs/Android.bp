@@ -1,0 +1,15 @@
+//
+// Copyright (C) 2023 Kenvyra
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+    default_visibility: ["//packages/modules/microg-apex:__subpackages__"],
+}
+
+android_app_certificate {
+    name: "microg.certificate",
+    certificate: "microg",
+}

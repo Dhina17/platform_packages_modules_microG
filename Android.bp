@@ -1,0 +1,89 @@
+//
+// Copyright (C) 2023 Kenvyra
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+apex_key {
+    name: "org.kenvyra.microg.key",
+    public_key: "org.kenvyra.microg.avbpubkey",
+    private_key: "org.kenvyra.microg.pem",
+}
+
+android_app_import {
+    name: "GmsCoreMicrog",
+    owner: "microg",
+    apk: "GmsCore/play-services-core-mapbox-default-release.apk",
+    certificate: ":microg.certificate",
+    privileged: true,
+    uses_libs: ["com.android.location.provider"],
+    optional_uses_libs: [
+        "org.apache.http.legacy",
+        "androidx.window.extensions",
+        "androidx.window.sidecar"
+    ],
+    required: [
+        "microg.xml",
+        "privapp-permissions-microg.xml",
+        "whitelist-microg.xml",
+    ],
+    apex_available: [
+        "//apex_available:platform",
+        "org.kenvyra.microg",
+    ],
+}
+
+android_app_import {
+    name: "FakeStore",
+    owner: "microg",
+    apk: "GmsCore/vending-app-default-release-unsigned.apk",
+    certificate: ":microg.certificate",
+    privileged: true,
+    apex_available: [
+        "//apex_available:platform",
+        "org.kenvyra.microg",
+    ],
+}
+
+android_app_import {
+    name: "GsfProxy",
+    owner: "microg",
+    apk: "GsfProxy/services-framework-proxy-release-unsigned.apk",
+    certificate: ":microg.certificate",
+    apex_available: [
+        "//apex_available:platform",
+        "org.kenvyra.microg",
+    ],
+}
+
+apex {
+    name: "org.kenvyra.microg",
+    defaults: ["u-launched-apex-module"],
+    manifest: "manifest.json",
+    file_contexts: ":apex.test-file_contexts",  // Default, please edit, see go/android-apex-howto
+    apps: ["GmsCoreMicrog", "FakeStore", "GsfProxy"],
+    prebuilts: [
+        "microg.xml",
+        "privapp-permissions-microg.xml",
+        "whitelist-microg.xml"
+    ],
+    key: "org.kenvyra.microg.key",
+    certificate: ":microg.certificate",
+    compressible: false,
+    updatable: true,
+}
+
+apex {
+    name: "org.kenvyra.microg-stub",
+    defaults: ["u-launched-apex-module"],
+    manifest: "manifest-stub.json",
+    file_contexts: ":apex.test-file_contexts",  // Default, please edit, see go/android-apex-howto
+    key: "org.kenvyra.microg.key",
+    certificate: ":microg.certificate",
+    compressible: false,
+    updatable: true,
+}

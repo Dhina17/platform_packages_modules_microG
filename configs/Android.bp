@@ -1,0 +1,30 @@
+//
+// Copyright (C) 2023 Kenvyra
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+    default_visibility: ["//packages/modules/microg-apex:__subpackages__"],
+}
+
+prebuilt_etc {
+    name: "microg.xml",
+    src: "microg.xml",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-microg.xml",
+    sub_dir: "permissions",
+    src: "privapp-permissions-microg.xml",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "whitelist-microg.xml",
+    sub_dir: "sysconfig",
+    src: "whitelist-microg.xml",
+    installable: false,
+}
